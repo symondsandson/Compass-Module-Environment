@@ -76,7 +76,11 @@ class Quill::BaseModel
     # load user defined attributes. This is arbitrary data that the app
     # has stored for this record.
     self.class.attributes.each do |attr|
-      attrs[attr] = YAML.load(object.data[attr]) if object.data[attr].present?
+      begin
+        attrs[attr] = YAML.load(object.data[attr]) if object.data[attr].present?
+      rescue Psych::SyntaxError
+        attrs[attr] = object.data[attr]
+      end
     end
 
     @data.reverse_merge!(attrs)
