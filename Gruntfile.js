@@ -48,6 +48,9 @@ module.exports = function (grunt) {
 
   });
 
+  grunt.registerTask('build', ['concat', 'uglify']);
+  grunt.registerTask('default', ['build','copy']);
+
   grunt.event.on('watch', function (action, filepath, target) {
     grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
   });
