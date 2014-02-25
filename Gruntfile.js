@@ -1,6 +1,8 @@
 module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -24,7 +26,26 @@ module.exports = function (grunt) {
           {expand: true, cwd: 'core/scripts', src: 'quill.js', dest: 'questions-module/app/assets/javascripts', filter: 'isFile'}
         ]
       }
+    },
+
+    concat: {
+      lib: {
+        files: [{
+          src: ['core/scripts/lib/*.js'],
+          dest: 'core/scripts/quill.js'
+        }]
+      }
+    },
+
+    uglify: {
+      lib: {
+        files: [{
+          src: ['core/scripts/quill.js'],
+          dest: 'core/scripts/quill.min.js'
+        }]
+      }
     }
+
   });
 
   grunt.event.on('watch', function (action, filepath, target) {
