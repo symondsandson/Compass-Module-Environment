@@ -36,7 +36,7 @@ module.exports = function (grunt) {
             dest: 'quill/app/assets/javascripts/quill.js'
           },
           {
-            src: ['core/scripts/pkg/quill.js'], 
+            src: ['core/scripts/pkg/quill.js'],
             dest: 'questions-module/app/assets/javascripts/quill.js'
           }
         ]
