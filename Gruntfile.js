@@ -2,7 +2,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -32,19 +31,10 @@ module.exports = function (grunt) {
       lib: {
         files: [{
           src: ['core/scripts/lib/*.js'],
-          dest: 'core/scripts/quill.js'
+          dest: 'core/scripts/pkg/quill.js'
         }]
       }
     },
-
-    uglify: {
-      lib: {
-        files: [{
-          src: ['core/scripts/quill.js'],
-          dest: 'core/scripts/quill.min.js'
-        }]
-      }
-    }
 
   });
 
