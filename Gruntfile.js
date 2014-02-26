@@ -13,16 +13,28 @@ module.exports = function (grunt) {
         options: {
           dot: true
         }
-      }
+      },
+      pkg: {
+        files: 'core/scripts/pkg/quill.js',
+        tasks: ['copy:pkg']
+      },
+      lib: {
+        files: 'core/scripts/lib/*.js',
+        tasks: ['concat']
+      },
     },
 
     copy: {
-      copycore: {
+      core: {
         files: [
           {expand: true, src: ['core/**'], dot: true, dest: 'quill/'},
-          {expand: true, src: ['core/**'], dot: true, dest: 'api/'},
-          {expand: true, cwd: 'core/scripts', src: 'quill.js', dest:            'quill/app/assets/javascripts', filter: 'isFile'},
-          {expand: true, cwd: 'core/scripts', src: 'quill.js', dest: 'questions-module/app/assets/javascripts', filter: 'isFile'}
+          {expand: true, src: ['core/**'], dot: true, dest: 'api/'}
+        ]
+      },
+      pkg: {
+        files: [
+          {src: ['core/scripts/pkg/quill.js'], dest: 'quill/app/assets/javascripts/quill.js'},
+          {src: ['core/scripts/pkg/quill.js'], dest: 'questions-module/app/assets/javascripts/quill.js'}
         ]
       }
     },
@@ -38,7 +50,7 @@ module.exports = function (grunt) {
 
   });
 
-  grunt.registerTask('build', ['concat', 'uglify']);
+  grunt.registerTask('build', ['concat','copy:pkg']);
   grunt.registerTask('default', ['build','copy']);
 
   grunt.event.on('watch', function (action, filepath, target) {
