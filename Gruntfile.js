@@ -25,8 +25,8 @@ module.exports = function (grunt) {
     copy: {
       core: {
         files: [
-          {expand: true, src: ['core/models/**'], dot: true, dest: 'quill/'},
-          {expand: true, src: ['core/models/**'], dot: true, dest: 'api/'}
+          {expand: true, src: ['core/**'], dot: true, dest: 'quill/'},
+          {expand: true, src: ['core/**'], dot: true, dest: 'api/'}
         ]
       },
       pkg: {
@@ -50,7 +50,7 @@ module.exports = function (grunt) {
           dest: 'core/scripts/pkg/quill.js'
         }]
       }
-    },
+    }
 
   });
 
