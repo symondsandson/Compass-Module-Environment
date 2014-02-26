@@ -8,11 +8,9 @@ module.exports = function (grunt) {
 
     watch: {
       core: {
-        files: 'core/**',
-        tasks: ['copy'],
-        options: {
-          dot: true
-        }
+        files: 'core/models/**',
+        tasks: ['copy:core'],
+        options: {dot: true}
       },
       pkg: {
         files: 'core/scripts/pkg/quill.js',
@@ -27,14 +25,20 @@ module.exports = function (grunt) {
     copy: {
       core: {
         files: [
-          {expand: true, src: ['core/**'], dot: true, dest: 'quill/'},
-          {expand: true, src: ['core/**'], dot: true, dest: 'api/'}
+          {expand: true, src: ['core/models/**'], dot: true, dest: 'quill/'},
+          {expand: true, src: ['core/models/**'], dot: true, dest: 'api/'}
         ]
       },
       pkg: {
         files: [
-          {src: ['core/scripts/pkg/quill.js'], dest: 'quill/app/assets/javascripts/quill.js'},
-          {src: ['core/scripts/pkg/quill.js'], dest: 'questions-module/app/assets/javascripts/quill.js'}
+          {
+            src: ['core/scripts/pkg/quill.js'],
+            dest: 'quill/app/assets/javascripts/quill.js'
+          },
+          {
+            src: ['core/scripts/pkg/quill.js'], 
+            dest: 'questions-module/app/assets/javascripts/quill.js'
+          }
         ]
       }
     },
