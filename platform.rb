@@ -53,6 +53,10 @@ class QuillPlatform < Thor
       run 'cd questions-module && git push'
     end
 
+    threads << Thread.new do
+      run 'git push'
+    end
+
     threads.map(&:join)
 
     puts 'Publish finished.'
