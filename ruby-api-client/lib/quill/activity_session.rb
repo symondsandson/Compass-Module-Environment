@@ -4,9 +4,9 @@ class Quill::ActivitySession < Quill::BaseModel
   def find
     if anonymous && id.blank?
       persist
-    else
-      api.activity_sessions.find(id)
     end
+
+    api.activity_sessions.find(id)
   end
 
   def activity

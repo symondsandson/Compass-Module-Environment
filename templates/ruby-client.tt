@@ -2,7 +2,7 @@ module Quill
   module EndpointDefinitions
   <% Quill::API.endpoints.each do |endpoint, endpoint_definition| %>
     def <%= endpoint %>
-      Client::Endpoint.new(self, <%= endpoint.inspect %>, <%= endpoint_definition.inspect %>)
+      Client::Endpoint.new(self, <%= endpoint.inspect %>, <%= endpoint_definition.to_hash.inspect %>)
     end
   <% end %>
   end

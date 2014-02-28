@@ -1,3 +1,5 @@
+require 'oauth2'
+
 module Quill
   autoload :ActivityModel,       'quill/activity_model'
   autoload :ActivitySession,     'quill/activity_session'
