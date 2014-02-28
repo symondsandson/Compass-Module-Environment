@@ -13,8 +13,7 @@ class QuillPlatform < Thor
   def generate_clients
     @version = File.read('version')
 
-    template('templates/ruby-client.tt',             'pkg/ruby-api-client/lib/quill/endpoint_definitions.rb')
-    template('templates/ruby-package-definition.tt', 'pkg/ruby-api-client/quill-api-client.gemspec')
+    directory('templates/clients/ruby', 'pkg/ruby-api-client')
   end
 
   desc 'deploy', 'deploy'
