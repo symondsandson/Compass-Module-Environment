@@ -37,6 +37,27 @@ class QuillPlatform < Thor
     puts 'Deploy finished.'
   end
 
+  desc 'publish', 'publish'
+  def publish
+    threads = []
+
+    threads << Thread.new do
+      run 'cd quill && git push origin refactor'
+    end
+
+    threads << Thread.new do
+      run 'cd api && git push'
+    end
+
+    threads << Thread.new do
+      run 'cd questions-module && git push'
+    end
+
+    threads.map(&:join)
+
+    puts 'Publish finished.'
+  end
+
   desc 'publish_clients', 'publish_clients'
   def publish_clients
     generate_clients
