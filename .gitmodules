@@ -1,12 +1,12 @@
-[submodule "core"]
-  path = core
-  url = https://github.com/empirical-org/quill-core.git
-[submodule "api"]
-  path = api
-  url = https://github.com/empirical-org/quill-api.git
-[submodule "quill"]
-  path = quill
-  url = https://github.com/empirical-org/quill.git
-[submodule "questions-module"]
-  path = questions-module
-  url = https://github.com/empirical-org/quill-questions-module.git
+[submodule "Compass-Common"]
+  path = Compass-Common
+  url = https://github.com/empirical-org/Compass-Common.git
+[submodule "Compass-API"]
+  path = Compass-API
+  url = https://github.com/empirical-org/Compass-API.git
+[submodule "Compass"]
+  path = Compass
+  url = https://github.com/empirical-org/Compass.git
+[submodule "Quill-Lessons"]
+  path = Quill-Lessons
+  url = https://github.com/empirical-org/Quill-Lessons.git
