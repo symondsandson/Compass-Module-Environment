@@ -1,6 +1,8 @@
+#!/usr/bin/env ruby
+
 require 'thor'
 require 'hashie'
-require './api/lib/quill/api.rb'
+require './Compass-API/lib/quill/api.rb'
 
 class QuillPlatform < Thor
   include Thor::Actions
@@ -21,15 +23,15 @@ class QuillPlatform < Thor
     threads = []
 
     threads << Thread.new do
-      run 'cd quill && git push heroku-staging refactor:master'
+      run 'cd Compass && git push heroku-staging refactor:master'
     end
 
     threads << Thread.new do
-      run 'cd api && git push heroku master'
+      run 'cd Compass-API && git push heroku master'
     end
 
     threads << Thread.new do
-      run 'cd questions-module && git push heroku master'
+      run 'cd Quill-Lessons && git push heroku master'
     end
 
     threads.map(&:join)
@@ -42,15 +44,15 @@ class QuillPlatform < Thor
     threads = []
 
     threads << Thread.new do
-      run 'cd quill && git push origin refactor'
+      run 'cd Compass && git push origin refactor'
     end
 
     threads << Thread.new do
-      run 'cd api && git push'
+      run 'cd Compass-API && git push'
     end
 
     threads << Thread.new do
-      run 'cd questions-module && git push'
+      run 'cd Quill-Lessons && git push'
     end
 
     threads << Thread.new do

@@ -8,16 +8,16 @@ module.exports = function (grunt) {
 
     watch: {
       core: {
-        files: 'core/models/**',
+        files: 'Compass-Common/models/**',
         tasks: ['copy:core'],
         options: {dot: true}
       },
       pkg: {
-        files: 'core/scripts/pkg/quill.js',
+        files: 'Compass-Common/scripts/pkg/quill.js',
         tasks: ['copy:pkg']
       },
       lib: {
-        files: 'core/scripts/lib/*.js',
+        files: 'Compass-Common/scripts/lib/*.js',
         tasks: ['concat']
       },
     },
@@ -25,19 +25,19 @@ module.exports = function (grunt) {
     copy: {
       core: {
         files: [
-          {expand: true, src: ['core/**'], dot: true, dest: 'quill/'},
-          {expand: true, src: ['core/**'], dot: true, dest: 'api/'}
+          {expand: true, cwd: 'Compass-Common/', src: ['**'], dot: true, dest: 'Compass/core/'},
+          {expand: true, cwd: 'Compass-Common/', src: ['**'], dot: true, dest: 'Compass-API/core/'}
         ]
       },
       pkg: {
         files: [
           {
-            src: ['core/scripts/pkg/quill.js'],
-            dest: 'quill/app/assets/javascripts/quill.js'
+            src: ['Compass-Common/scripts/pkg/quill.js'],
+            dest: 'Compass/app/assets/javascripts/quill.js'
           },
           {
-            src: ['core/scripts/pkg/quill.js'],
-            dest: 'questions-module/app/assets/javascripts/quill.js'
+            src: ['Compass-Common/scripts/pkg/quill.js'],
+            dest: 'Quill-Lessons/app/assets/javascripts/quill.js'
           }
         ]
       }
@@ -46,8 +46,8 @@ module.exports = function (grunt) {
     concat: {
       lib: {
         files: [{
-          src: ['core/scripts/lib/*.js'],
-          dest: 'core/scripts/pkg/quill.js'
+          src: ['Compass-Common/scripts/lib/*.js'],
+          dest: 'Compass-Common/scripts/pkg/quill.js'
         }]
       }
     }
