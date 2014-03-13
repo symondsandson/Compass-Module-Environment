@@ -56,6 +56,10 @@ class QuillPlatform < Thor
     end
 
     threads << Thread.new do
+      run 'cd Compass-Common && git push'
+    end
+
+    threads << Thread.new do
       run 'git push'
     end
 
