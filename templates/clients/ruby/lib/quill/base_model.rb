@@ -77,7 +77,11 @@ class Quill::BaseModel
     # has stored for this record.
     self.class.attributes.each do |attr|
       begin
-        attrs[attr] = YAML.load(object.data[attr]) if object.data[attr].present?
+        if object.data[attr].to_s[0..2] == '---'
+          attrs[attr] = YAML.load(object.data[attr])
+        else
+          attrs[attr] = object.data[attr]
+        end
       rescue Psych::SyntaxError
         attrs[attr] = object.data[attr]
       end
