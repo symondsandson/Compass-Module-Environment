@@ -6,6 +6,7 @@ module Quill
   autoload :BaseModel,           'quill/base_model'
   autoload :Client,              'quill/client'
   autoload :Configuration,       'quill/configuration'
+  autoload :Endpoint,            'quill/endpoints'
   autoload :EndpointDefinitions, 'quill/endpoint_definitions'
   autoload :Oauth,               'quill/oauth'
 
