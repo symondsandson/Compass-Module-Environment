@@ -1,0 +1,9 @@
+{
+  "name": "docker-automation",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {},
+  "dependencies": {
+    "fibers": "~1.0.1"
+  }
+}
