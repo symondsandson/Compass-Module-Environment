@@ -1,0 +1,9 @@
+docker run -u root     --rm -v /var/docker-data/var/lib/postgresql:/var/lib/postgresql --name postgres -P postgres "sh" "-c" "chown postgres /var/lib/postgresql && su postgres -c '/usr/lib/postgresql/9.3/bin/initdb /var/lib/postgresql/9.3/main'"
+
+docker run -u postgres --rm -v /var/docker-data/var/lib/postgresql:/var/lib/postgresql --name postgres -P postgres "sh" "-c" "/etc/init.d/postgresql start && psql --command \"CREATE USER docker WITH SUPERUSER PASSWORD 'docker';\" && createdb -O docker docker"
+
+docker run --rm -P \
+-v /var/docker-data/etc/postgresql:/etc/postgresql \
+-v /var/docker-data/var/log/postgresql:/var/log/postgresql \
+-v /var/docker-data/var/lib/postgresql:/var/lib/postgresql \
+--name postgres postgres

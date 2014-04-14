@@ -82,38 +82,7 @@ function debugResponse (err, res) {
   console.log('BODY: ' + res.bodyString);
 }
 
-// ---------------------------------------------------------------------
-
-Fiber(function() {
-  var res = findOrCreateContainer('postgres', {
-    Hostname: "",
-    User: "",
-    AttachStdout: true,
-    AttachStderr: true,
-    PortSpecs: null,
-    Env: null,
-    Cmd: [
-      "/usr/lib/postgresql/9.3/bin/postgres", "-D", "/var/lib/postgresql/9.3/main", "-c", "config_file=/etc/postgresql/9.3/main/postgresql.conf"
-    ],
-    Dns: null,
-    Image: "ubuntu"
-  });
-
-  // docker run --rm -P -v /var/docker-data/etc/postgresql:/etc/postgresql -v /var/docker-data/var/log/postgresql:/var/log/postgresql -v /var/docker-data/var/lib/postgresql:/var/lib/postgresql --name postgres postgres
-  runContainer(res.id, {
-    Binds: [
-      '/var/docker-data/etc/postgresql:/etc/postgresql',
-      '/var/docker-data/var/log/postgresql:/var/log/postgresql',
-      '/var/docker-data/var/lib/postgresql:/var/lib/postgresql'
-    ],
-    PublishAllPorts: true
-  });
-}).run();
-
-// # Create a PostgreSQL role named ``docker`` with ``docker`` as the password and
-// # then create a database `docker` owned by the ``docker`` role.
-// # Note: here we use ``&&\`` to run commands one after the other - the ``\``
-// #       allows the RUN command to span multiple lines.
-// RUN /etc/init.d/postgresql start && \
-//     psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" && \
-//     createdb -O docker docker
+exports.request               = request;
+exports.requestWithCallback   = requestWithCallback;
+exports.findOrCreateContainer = findOrCreateContainer;
+exports.debugResponse         = debugResponse;
