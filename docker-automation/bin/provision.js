@@ -1,38 +1,24 @@
-var d = require('../lib/client.js');
+var d      = require('../lib/client.js')
+  , F      = require('fibers')
+  , util   = require('../lib/util.js')
+  , Future = require('fibers/future')
 
-// ---------------------------------------------------------------------
+var traverse = Future.wrap(util.traverse);
 
-Fiber(function() {
-  findOrCreateContainer('compass-postgres', { Image: 'postgres_Image' });
-  findOrCreateContainer('compass-compass',  { Image: 'rails_Image', });
-  findOrCreateContainer('compass-api',      { Image: 'rails_Image', });
-  findOrCreateContainer('compass-quill',    { Image: 'rails_Image', });
+F(function() {
+  var base = traverse('.', function (f) { return (f == 'platform.rb') }).wait();
 
-  debugResponse(null, res);
+  // res = [];
+  // res << d.findOrCreateContainer('compass-postgres', { Image: 'postgres_Image', Volumes: { "/data": {} }, Cmd: [ "ls -lah", "/data" ]});
+  // res << d.findOrCreateContainer('compass-compass',  { Image: 'rails_Image',    Volumes: { "/data": {} }, Cmd: [ "ls -lah", "/data" ]});
+  // res << d.findOrCreateContainer('compass-api',      { Image: 'rails_Image',    Volumes: { "/data": {} }, Cmd: [ "ls -lah", "/data" ]});
+  d.findOrCreateContainer('compass-quill',    {"Hostname":"","Domainname":"","User":"","Memory":0,"MemorySwap":0,"CpuShares":0,"AttachStdin":true,"AttachStdout":true,"AttachStderr":true,"PortSpecs":null,"ExposedPorts":{},"Tty":false,"OpenStdin":false,"StdinOnce":false,"Env":null,"Cmd": ["ls", "-lah", "/data"],"Dns":null,"Image":"rails_Image","Volumes":{"/data":{}},"VolumesFrom":"","WorkingDir":"","Entrypoint":null,"NetworkDisabled":false,"OnBuild":null});
+  // res << d.runContainer('compass-compass',  { PublishAllPorts: true, Binds: [base + '/Compass:/data'],       Links: ['postgres:pg'] });
+  // res << d.runContainer('compass-api',      { PublishAllPorts: true, Binds: [base + '/Compass-API:/data'],   Links: ['postgres:pg'] });
+  d.runContainer('compass-quill',    {"Binds":["/home/quinn/quill-platform/Quill-Lessons:/data"],"ContainerIDFile":"","LxcConf":[],"Privileged":false,"PortBindings":{},"Links":["postgres:pg"],"PublishAllPorts":true});
 
-  runContainer('compass-quill', {
-    PublishAllPorts: true
-
-  })
-
-  // // docker run --rm -P -v /var/docker-data/etc/postgresql:/etc/postgresql -v /var/docker-data/var/log/postgresql:/var/log/postgresql -v /var/docker-data/var/lib/postgresql:/var/lib/postgresql --name postgres postgres
-  // runContainer(res.id, {
-  //   Binds: [
-  //     '/var/docker-data/etc/postgresql:/etc/postgresql',
-  //     '/var/docker-data/var/log/postgresql:/var/log/postgresql',
-  //     '/var/docker-data/var/lib/postgresql:/var/lib/postgresql'
-  //   ],
+  // console.log(JSON.stringify(res1));
+  // d.debugResponse(null, res1);
+  // res.forEach(function (r) {
   // });
-
-  runContainer('compass-compass',  { PublishAllPorts: true, Links: ['postgres:pg'] });
-  runContainer('compass-api',      { PublishAllPorts: true, Links: ['postgres:pg'] });
-  runContainer('compass-quill',    { PublishAllPorts: true, Links: ['postgres:pg', 'compass-api:api', 'compass-compass:compass'] });
 }).run();
-
-// # Create a PostgreSQL role named ``docker`` with ``docker`` as the password and
-// # then create a database `docker` owned by the ``docker`` role.
-// # Note: here we use ``&&\`` to run commands one after the other - the ``\``
-// #       allows the RUN command to span multiple lines.
-// RUN /etc/init.d/postgresql start && \
-//     psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" && \
-//     createdb -O docker docker

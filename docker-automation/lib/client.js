@@ -4,7 +4,7 @@ var HTTP        = require('http')
   , Future      = require('fibers/future')
   , wait        = Future.wait;
 
-var R_NAME_ALREADY_ASSIGNED = /^Conflict, The name .* is already assigned to ([a-f0-9]{12})\. You have to delete \(or rename\) that container to be able to assign postgres to a container again\.$/;
+var R_NAME_ALREADY_ASSIGNED = /^Conflict, The name .* is already assigned to ([a-f0-9]{12})/;
 
 function path (pathname, params) {
   var url = URL.parse(pathname);
@@ -14,7 +14,7 @@ function path (pathname, params) {
 
 function requestWithCallback (method, pathname, params, body, callback) {
   var options = {
-    socketPath: '/var/run/docker.sock',
+    socketPath: '/tmp/proxysocket.sock',
     path: path(pathname, params),
     method: method
   };
@@ -65,7 +65,12 @@ function findOrCreateContainer (name, options) {
 }
 
 function runContainer (id, options) {
-  return request('POST', '/containers/'+ id +'/start', null, null).wait();
+  var json = JSON.stringify(options);
+  return request('POST', '/containers/'+ id +'/start', {}, json).wait();
+}
+
+function runContainerWithCallback (id, options, callback) {
+  return requestWithCallback('POST', '/containers/'+ id +'/start', {}, json, callback)
 }
 
 function debugResponse (err, res) {
@@ -85,4 +90,6 @@ function debugResponse (err, res) {
 exports.request               = request;
 exports.requestWithCallback   = requestWithCallback;
 exports.findOrCreateContainer = findOrCreateContainer;
+exports.runContainer          = runContainer;
+exports.runContainerWithCallback          = runContainerWithCallback;
 exports.debugResponse         = debugResponse;
