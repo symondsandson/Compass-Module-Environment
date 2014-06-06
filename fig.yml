@@ -1,4 +1,9 @@
-db:
+compassdb:
+  image: orchardup/postgresql
+  ports:
+    - "5432"
+
+quilldb:
   image: orchardup/postgresql
   ports:
     - "5432"
@@ -11,4 +16,24 @@ compass:
   ports:
     - "3000:3000"
   links:
-    - db
+    - compassdb
+
+api:
+  build: ./Compass-API
+  command: bundle exec rackup -p 3000
+  volumes:
+    - ./Compass-API:/app
+  ports:
+    - "3000:3001"
+  links:
+    - compassdb
+
+quill:
+  build: ./Quill-Lessons
+  command: bundle exec rackup -p 3000
+  volumes:
+    - ./Quill-Lessons:/app
+  ports:
+    - "3000:3002"
+  links:
+    - quilldb
