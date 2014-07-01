@@ -39,3 +39,6 @@ quill:
     - quilldb
   environment:
     QUILL_SITE_URL: http://localdocker:3000/
+    QUILL_API_URL: http://localdocker:3001/
+    QUILL_CLIENT_ID: quill-lessons
+    QUILL_CLIENT_SECRET: not-a-secret
