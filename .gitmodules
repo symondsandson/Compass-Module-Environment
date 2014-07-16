@@ -1,12 +1,13 @@
 [submodule "Compass-Common"]
   path = Compass-Common
-  url = https://github.com/empirical-org/Compass-Common.git
+  url = git@github.com:symondsandson/Compass-Common.git
 [submodule "Compass-API"]
   path = Compass-API
-  url = https://github.com/empirical-org/Compass-API.git
+  url = git@github.com:symondsandson/Compass-API.git
 [submodule "Compass"]
   path = Compass
-  url = https://github.com/empirical-org/Compass.git
+  url = git@github.com:symondsandson/Compass.git
 [submodule "Quill-Lessons"]
   path = Quill-Lessons
-  url = https://github.com/empirical-org/Quill-Lessons.git
+  url = git@github.com:symondsandson/Quill-Lessons.git
+
